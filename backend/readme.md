@@ -16,6 +16,7 @@ Tambem é criado um container algo parecido com um emulador de sistema operacion
 O espaço ocupado pelo projeto é de 200MB o preço a se pagar pela praticidade do docker :stuck_out_tongue_closed_eyes:
 
 comandos:
+
  imagens-> https://docs.docker.com/engine/reference/commandline/image/
 
  containers -> https://docs.docker.com/engine/reference/commandline/docker/
