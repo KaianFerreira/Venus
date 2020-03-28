@@ -1,7 +1,7 @@
 ## Como executar
 O unico requisito necessario é o docker. :heart_eyes:
 
-Após instalar o docker rodar os seguintes comandos:  
+Após instalar o docker rodar os seguintes comandos com privilegios de administrador (no linux sudo no windows eu não sei):  
 docker build https://gitlab.com/KaianFSantos/venus.git#master:backend
 
 docker run -d -p 8080:8080 backend
