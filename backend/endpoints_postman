@@ -1,0 +1,58 @@
+{
+  "id": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
+  "name": "Venus",
+  "requests": [
+    {
+      "id": "51b5f9c5-a894-478c-aad6-317af57a5e01",
+      "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
+      "method": "POST",
+      "url": "http://0.0.0.0:8080/login",
+      "headers": "\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "email",
+          "value": "fernandodsds@gmail.com",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "password",
+          "value": "12341",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    },
+    {
+      "id": "9a07386d-a3bd-4d13-8619-c274fb82ce07",
+      "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
+      "method": "POST",
+      "url": "http://0.0.0.0:8080/signup",
+      "headers": "\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "email",
+          "value": "fernandodsds@gmail.com",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "name",
+          "value": "fernandods",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "password",
+          "value": "12341",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    }
+  ]
+}
