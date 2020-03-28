@@ -9,7 +9,7 @@ docker run -d -p 8080:8080 backend
 ## Endpoints da API
 Para verficar os endpoints importar no postman "endpoints_postman.txt"
 
-## Dicas uteis docker
+## Dicas uteis docker :whale:
 Quando rodamos os comandos acima criamos uma imagem (Algo parecido como uma imagem de emulador), é possivel listar remover e etc.
 Tambem é criado um container algo parecido com um emulador de sistema operacional porem muito mais leve.
 
