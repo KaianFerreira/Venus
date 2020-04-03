@@ -1,0 +1,23 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+  span {
+    margin-bottom: 4px;
+  }
+  input {
+    border: solid 1px;
+  }
+  margin: 10px 0px;
+}
+
+.input-small {
+  max-width: 100px !important;
+}
+
+.input-regular {
+  max-width: 250px !important;
+}
+
+.input-large {
+  max-width: 300px !important;
+}
