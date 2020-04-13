@@ -10,10 +10,12 @@
           <div v-if="login" class="login-form">
             <form @submit.prevent="signIn">
               <div class="form-group">
-                <input type="email" class="input-large" placeholder="Email" v-model="email">
+                <input type="email" class="input-value input-large" id="email" v-model="email">
+                <label class="input-span" for="email" :class="{ 'active': email }">Email</label>
               </div>
               <div class="form-group">
-                <input type="password" class="input-large" placeholder="Senha" v-model="password">
+                <input type="password" class="input-value input-large"  id="password" v-model="password">
+                <label class="input-span" :class="{ 'active': password }" for="password">Senha</label>
               </div>
             </form>
           </div>
@@ -59,12 +61,14 @@ export default {
   align-items: center;
 }
 .login-form {
-  background-color: #0e002f;
+  background-color: #666666;
   color: white;
   display: flex;
+  height: 100%;
+  width: 500px;
   justify-content: center;
   .wrapper {
-    width: 300px;
+    min-height: 100%;
   }
   .header {
     display: flex;
