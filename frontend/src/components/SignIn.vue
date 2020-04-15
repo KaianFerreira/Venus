@@ -10,12 +10,16 @@
           <div v-if="login" class="login-form">
             <form @submit.prevent="signIn">
               <div class="form-group">
-                <input type="email" class="input-value input-large" id="email" v-model="email">
-                <label class="input-span" for="email" :class="{ 'active': email }">Email</label>
+                <div class="wrapper">
+                  <input type="email" class="input-value input-large" id="email" v-model="email"/>
+                  <label class="input-span" for="email" :class="{ 'active': email }">Email</label>
+                </div>
               </div>
               <div class="form-group">
-                <input type="password" class="input-value input-large"  id="password" v-model="password">
-                <label class="input-span" :class="{ 'active': password }" for="password">Senha</label>
+                <div class="wrapper">
+                  <input type="password" class="input-value input-large"  id="password" v-model="password">
+                  <label class="input-span" :class="{ 'active': password }" for="password">Senha</label>
+                </div>
               </div>
             </form>
           </div>
@@ -72,8 +76,6 @@ export default {
   }
   .header {
     display: flex;
-  }
-  .content {
   }
 }
 </style>
