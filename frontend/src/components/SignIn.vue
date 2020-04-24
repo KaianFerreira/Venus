@@ -10,16 +10,14 @@
           <div v-if="login" class="login-form">
             <form @submit.prevent="signIn">
               <div class="form-group">
-                <div class="wrapper">
-                  <input type="email" class="input-value input-large" id="email" v-model="email"/>
-                  <label class="input-span" for="email" :class="{ 'active': email }">Email</label>
-                </div>
+                <input type="email" class="input-value input-large" id="email" v-model="email"/>
+                <label class="input-span" for="email" :class="{ 'active': email }">Email</label>
+                <div class="line"></div>
               </div>
               <div class="form-group">
-                <div class="wrapper">
-                  <input type="password" class="input-value input-large"  id="password" v-model="password">
-                  <label class="input-span" :class="{ 'active': password }" for="password">Senha</label>
-                </div>
+                <input type="password" class="input-value input-large"  id="password" v-model="password">
+                <label class="input-span" :class="{ 'active': password }" for="password">Senha</label>
+                <div class="line"></div>
               </div>
             </form>
           </div>
@@ -71,11 +69,17 @@ export default {
   height: 100%;
   width: 500px;
   justify-content: center;
+  padding: 30px;
   .wrapper {
     min-height: 100%;
   }
   .header {
     display: flex;
+    justify-content: center;
+    width: 100%;
+    * {
+      border: 1px solid white;
+    }
   }
 }
 </style>
