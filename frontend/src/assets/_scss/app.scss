@@ -9,9 +9,17 @@
   font-family: Roboto;
   src: url('../fonts/Roboto-Regular.ttf');
 }
+@font-face {
+  font-family: RobotoLight;
+  src: url('../fonts/Roboto-Light.ttf');
+}
+@font-face {
+  font-family: Satisfy;
+  src: url('../fonts/Satisfy-Regular.ttf');
+}
 
 html, body {
-  font-family: 'Roboto';
+  font-family: 'RobotoLight';
   height: 100% !important;
   width : 100% !important;
   margin: 0;
@@ -20,5 +28,9 @@ html, body {
 
 #app {
   width: 100%;
+  height: 100%;
+}
+
+.container {
   height: 100%;
 }

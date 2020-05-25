@@ -1,39 +1,30 @@
 <template>
   <section class="container">
     <div class="login-form">
-      <div class="wrapper">
-        <div class="header">
-          <div @click="login = true">Entrar</div>
-          <div @click="login = false">Registrar-se</div>
+      <div class="header">
+        <div class="logo">
+          Venus
         </div>
-        <div class="content">
-          <div v-if="login" class="login-form">
-            <form @submit.prevent="signIn">
-              <div class="form-group">
-                <input type="email" class="input-value input-large" id="email" v-model="email"/>
-                <label class="input-span" for="email" :class="{ 'active': email }">Email</label>
-                <div class="line"></div>
-              </div>
-              <div class="form-group">
-                <input type="password" class="input-value input-large"  id="password" v-model="password">
-                <label class="input-span" :class="{ 'active': password }" for="password">Senha</label>
-                <div class="line"></div>
-              </div>
-            </form>
-          </div>
-          <div v-if="!login" class="signUp">
-            <form @submit.prevent="signUp">
-
-            </form>
-          </div>
-        </div>
+        <div class="title">Login</div>
+      </div>
+      <div class="input-group">
+        <Input :return="inputEmail" label='Email' Type='text'/>
+        <Input :return="inputPassword" label='Password' Type='password'/>
+      </div>
+      <div class="button-group">
+        <button class="btn secondary">Cadastrar</button>
+        <button class="btn primary">Login</button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import Input from './Input'
 export default {
+  components: {
+    Input
+  },
   data () {
     return {
       login: true,
@@ -44,6 +35,12 @@ export default {
     }
   },
   methods: {
+    inputEmail (value) {
+      this.email = value
+    },
+    inputPassword (value) {
+      this.password = value
+    },
     signIn () {
       console.log('logar')
     },
@@ -55,31 +52,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  min-width: 100%;
-  align-items: center;
-}
-.login-form {
-  background-color: #666666;
-  color: white;
-  display: flex;
-  height: 100%;
-  width: 500px;
-  justify-content: center;
-  padding: 30px;
-  .wrapper {
-    min-height: 100%;
-  }
-  .header {
+@import "../assets/_scss/variables.scss";
+  .login-form {
+    height: 100%;
     display: flex;
-    justify-content: center;
-    width: 100%;
-    * {
-      border: 1px solid white;
+    flex-direction: column;
+    align-items: center;
+    .header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+      .logo {
+        margin: 20px 0;
+        color: #00CEF5;
+        font-family: Satisfy;
+        font-size: 4em;
+      }
+      .title {
+        display: flex;
+        align-items: center;
+        align-self: flex-start;
+        width: 100px;
+        height: 50px;
+        font-size: 1.6em;
+        justify-content: center;
+        border-left: 6px solid #0049FF;
+      }
+    }
+    .input-group {
+      margin-bottom: 70px;
     }
   }
-}
+  @media screen and (min-width: $desktop-width) {
+    .input-group {
+      font-size: 15px;
+    }
+  }
 </style>
