@@ -25,7 +25,7 @@ def login_post():
                 "Cause":"Please check your login details and try again."
                 })
 
-    token = jwt.encode({"user":email.decode('utf-8'),"exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+    token = jwt.encode({"user":user.id,"exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
 
     return  jsonify({
                 "Sucess":True,
