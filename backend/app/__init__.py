@@ -27,10 +27,11 @@ def create_app():
         return User.query.get(int(user_id))
 
     from .auth import auth as auth_blueprint
+ 
     app.register_blueprint(auth_blueprint)
 
-    #from .landpage import main as main_blueprint
-    #app.register_blueprint(main_blueprint)
+    from .landpage import main as main_blueprint
+    app.register_blueprint(main_blueprint)
 
     return app
 
