@@ -1,19 +1,21 @@
 <template>
   <section class="container">
     <div class="login-form">
-      <div class="header">
-        <div class="logo">
-          Venus
+      <div class="wrapper">
+        <div class="header">
+          <div class="logo">
+            Venus
+          </div>
+          <div class="title">Login</div>
         </div>
-        <div class="title">Login</div>
-      </div>
-      <div class="input-group">
-        <Input :return="inputEmail" label='Email' Type='text'/>
-        <Input :return="inputPassword" label='Password' Type='password'/>
-      </div>
-      <div class="button-group">
-        <button class="btn secondary">Cadastrar</button>
-        <button class="btn primary">Login</button>
+        <div class="input-group">
+          <Input :return="inputEmail" label='Email' Type='text'/>
+          <Input :return="inputPassword" label='Password' Type='password'/>
+        </div>
+        <div class="button-group">
+          <button class="btn secondary">Cadastrar</button>
+          <button class="btn primary">Login</button>
+        </div>
       </div>
     </div>
   </section>
@@ -54,10 +56,15 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/_scss/variables.scss";
   .login-form {
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    .wrapper {
+      width: 100%;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+    }
     .header {
       width: 100%;
       display: flex;
@@ -83,11 +90,29 @@ export default {
     }
     .input-group {
       margin-bottom: 70px;
+      width: 100%;
     }
   }
   @media screen and (min-width: $desktop-width) {
+    .container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      height:100%;
+      background-color: #0C84E8;
+    }
     .input-group {
       font-size: 15px;
+    }
+    .login-form {
+      background-color: white;
+      display: flex;
+      .wrapper {
+        padding-top: 150px;
+      }
+      justify-content: flex-start;
+      height: 100%;
+      width: 500px;
     }
   }
 </style>
