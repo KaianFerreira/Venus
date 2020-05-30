@@ -23,7 +23,6 @@
 </template>
 
 <script>
-
 import { getAll } from '../api/post'
 export default {
   data () {
@@ -33,13 +32,13 @@ export default {
       error: null
     }
   },
-  methods: {      
+  methods: {
     async teste () {
       try {
         this.error = null
         const res = await getAll()
         if (!res.Sucess) this.error = res.Cause
-        console.log( res)
+        console.log(res)
       } catch (error) {
         console.log(new Error(error))
       }

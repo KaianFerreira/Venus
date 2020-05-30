@@ -21,8 +21,8 @@ def token_required(f):
     def decorated(*args, **kwargs):
         token = None
 
-        if 'x-access-token' in request.headers:
-            token = request.headers['x-access-token']
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization']
         #print(token)
         if not token:
             return jsonify({'sucess':False,'message' : 'Token is missing!'}), 401
@@ -61,8 +61,8 @@ def get_all_users(current_user):
     return jsonify({'users' : output})
 
 @main.route('/public/profile/<username>')
-@token_required
 @cross_origin()
+@token_required
 def public_profile(current_user,username):
   print(username)
   posts = Post.query.filter_by(username=username)
@@ -106,8 +106,8 @@ def public_profile(current_user,username):
   return jsonify(obj_ret)
 
 @main.route('/posts')
-@token_required
 @cross_origin()
+@token_required
 def posts(current_user):
   posts = Post.query.order_by(Post.upvotes.desc()).all()
   my_upvotes = db.session.query(Upvote.id_post).filter(Upvote.upvoter == current_user.name).all()
