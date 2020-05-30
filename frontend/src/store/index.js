@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import { setToken, removeToken } from '../libs/token'
 Vue.use(Vuex)
 
 const startTime = new Date()
@@ -23,11 +23,13 @@ export default new Vuex.Store({
     },
     async signIn (store, data) {
       store.commit('user', data.user)
+      setToken(data.token)
       // should set the signIn token here
       store.dispatch('loaded')
     },
     signOut (store) {
       store.commit('user', null)
+      removeToken()
       store.dispatch('loaded')
     }
   }
