@@ -23,7 +23,7 @@ def token_required(f):
             token = request.headers['x-access-token']
         #print(token)
         if not token:
-            return jsonify({'Sucess':False,'message' : 'Token is missing!'}), 401
+            return jsonify({'sucess':False,'message' : 'Token is missing!'}), 401
 
         try: 
             data = jwt.decode(token, app.config['SECRET_KEY'])
@@ -32,7 +32,7 @@ def token_required(f):
             
         except Exception as e:
             
-            return jsonify({'Sucess':False,'message' : 'Token is invalid!'}), 401
+            return jsonify({'sucess':False,'message' : 'Token is invalid!'}), 401
 
         return f(current_user, *args, **kwargs)
 
@@ -65,7 +65,7 @@ def public_profile(current_user,username):
   posts = Post.query.filter_by(username=username)
   user = User.query.filter_by(name=username).first()
   if user is None:
-    return jsonify({"Sucess":False})
+    return jsonify({"sucess":False})
 
 
   my_upvotes = db.session.query(Upvote.id_post).filter(Upvote.upvoter == current_user.name).all()
@@ -93,7 +93,7 @@ def public_profile(current_user,username):
   if user_upvotes is None:
     user_upvotes = 0
   obj_ret = {
-      "Sucess":True,
+      "sucess":True,
       "posts": [row2dict(i) for i in posts],
       "user":row2dict(user),
       "user_upvotes":user_upvotes,
@@ -123,7 +123,7 @@ def posts(current_user):
   ret = {
       "button": button,
       "posts":posts_ret,
-      "Sucess":True
+      "sucess":True
   }
   return jsonify(ret)
 
@@ -142,4 +142,4 @@ def makepost(current_user):
         link=payload['link'])
     db.session.add(create_post)
     db.session.commit()
-    return {'Sucess':True}
+    return {'sucess':True}

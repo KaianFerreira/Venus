@@ -7,30 +7,38 @@ import datetime
 from flask import current_app as app
 from .models import User
 from . import db
-
+from .utils import  row2dict
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['POST'])
 def login_post():
 
     payload = json.loads(request.data)
-    email = payload['email'].encode("utf-8")
+    if  payload['password']  is None or payload['email'] is None:
+        return jsonify({
+        
+        "sucess":False,
+        "cause":"Please check your login details and try again."
+        })
+    email = payload['email']
     password = str(payload['password'])
 
     user = User.query.filter_by(email=email).first()
     
     if not user or not check_password_hash(user.password, password):
         return jsonify({
-                "Sucess":False,
-                "Cause":"Please check your login details and try again."
+                
+                "sucess":False,
+                "cause":"Please check your login details and try again."
                 })
 
     token = jwt.encode({"user":user.id,"exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
 
     return  jsonify({
-                "Sucess":True,
-                "Token":token.decode('UTF-8'),
-                "Cause":"Your log in on"
+                "user":row2dict(user),
+                "sucess":True,
+                "token":token.decode('UTF-8'),
+                "cause":"Your log in on"
                 })
 
 @auth.route('/signup')
@@ -41,19 +49,25 @@ def signup():
 def signup_post():
 
     payload = json.loads(request.data)
-    email = payload['email'].encode("utf-8")
-    name = payload['name'].encode("utf-8")
+    if  payload['password']  is None or payload['email'] is None or payload['name'] is None:
+        return jsonify({
+        
+        "sucess":False,
+        "cause":"Please check your login details and try again."
+        })
+    email = payload['email']
+    name = payload['name']
     password = str(payload['password'])
 
     user = User.query.filter_by(email=email).first()
 
     if user:
         flash('Email address already exists.')
-        return jsonify({"Success":False})
+        return jsonify({"success":False})
 
     new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
 
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({"Success":True})
+    return jsonify({"success":True})
 
