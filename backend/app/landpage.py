@@ -10,6 +10,8 @@ from . import db
 from .utils import extract, row2dict
 from .auth import jwt
 from flask import current_app as app
+
+from flask_cors import cross_origin
 import json
 
 main = Blueprint('main', __name__)
@@ -60,6 +62,7 @@ def get_all_users(current_user):
 
 @main.route('/public/profile/<username>')
 @token_required
+@cross_origin()
 def public_profile(current_user,username):
   print(username)
   posts = Post.query.filter_by(username=username)
@@ -104,6 +107,7 @@ def public_profile(current_user,username):
 
 @main.route('/posts')
 @token_required
+@cross_origin()
 def posts(current_user):
   posts = Post.query.order_by(Post.upvotes.desc()).all()
   my_upvotes = db.session.query(Upvote.id_post).filter(Upvote.upvoter == current_user.name).all()
@@ -130,6 +134,7 @@ def posts(current_user):
 
 @main.route('/post', methods=['POST'])
 @token_required
+@cross_origin()
 def makepost(current_user):
     payload = json.loads(request.data)
     if payload['title'] == '' or payload['description'] == '':

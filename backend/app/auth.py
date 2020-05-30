@@ -8,6 +8,8 @@ from flask import current_app as app
 from .models import User
 from . import db
 from .utils import  row2dict
+from flask_cors import cross_origin
+
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['POST'])
@@ -42,10 +44,12 @@ def login_post():
                 })
 
 @auth.route('/signup')
+@cross_origin()
 def signup():
     return render_template('signup.html')
 
 @auth.route('/signup', methods=['POST'])
+@cross_origin()
 def signup_post():
 
     payload = json.loads(request.data)
