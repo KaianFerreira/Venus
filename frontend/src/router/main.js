@@ -12,7 +12,7 @@ export default [
     path: '/signup',
     name: 'signup',
     component: () => import(/* webpackChunkName: "main" */ '../components/SignUp.vue')
-  }
+  },
   {
     path: '/teste',
     name: 'teste',
