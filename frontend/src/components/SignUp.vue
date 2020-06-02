@@ -6,15 +6,16 @@
           <div class="logo">
             Venus
           </div>
-          <div class="title">Login</div>
+          <div class="title">Cadastro</div>
         </div>
         <div class="input-group">
           <Input :return="inputEmail" label='Email' Type='text'/>
-          <Input :return="inputPassword" label='Password' Type='password'/>
+          <Input :return="inputPassword" label='Senha' Type='password'/>
+          <Input :return="inputPasswordConfirmation" label='Confirme a senha' Type='password'/>
         </div>
         <div class="button-group">
-          <button @click="$router.push('/signup')" class="btn secondary">Cadastrar</button>
-          <button class="btn primary">Login</button>
+          <button @click="$router.push('/signin')" class="btn secondary">Cancelar</button>
+          <button @click="signUp()" class="btn primary">Continuar</button>
         </div>
       </div>
     </div>
@@ -32,8 +33,7 @@ export default {
       login: true,
       email: null,
       password: null,
-      name: null,
-      lastName: null
+      passwordConfirmation: null
     }
   },
   methods: {
@@ -43,11 +43,14 @@ export default {
     inputPassword (value) {
       this.password = value
     },
-    signIn () {
-      console.log('logar')
+    inputPasswordConfirmation (value) {
+      this.passwordConfirmation = value
     },
     signUp () {
-      console.log('cadastro')
+      console.log('tentando cadastrar')
+    },
+    cancel () {
+      console.log('cancelando')
     }
   }
 }
