@@ -12,28 +12,25 @@
           <Input :return="inputEmail" label='Email' Type='text'/>
           <Input :return="inputPassword" label='Password' Type='password'/>
         </div>
-        <div class="button-group">
-          <button @click="$router.push('/signup')" class="btn secondary">Cadastrar</button>
-          <button class="btn primary">Login</button>
-        </div>
+        <span class="error" style="align-self: flex-start">{{ error }}</span>
+      </div>
+      <div class="button-group">
+        <button @click="$router.push('/signup')" class="btn secondary">Cadastrar</button>
+        <button class="btn primary" @click="signIn()">Login</button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import Input from './Input'
+
+import { login } from '../api/core'
 export default {
-  components: {
-    Input
-  },
   data () {
     return {
-      login: true,
-      email: null,
-      password: null,
-      name: null,
-      lastName: null
+      email: '',
+      password: '',
+      error: null
     }
   },
   methods: {
@@ -43,11 +40,15 @@ export default {
     inputPassword (value) {
       this.password = value
     },
-    signIn () {
-      console.log('logar')
-    },
-    signUp () {
-      console.log('cadastro')
+    async signIn () {
+      try {
+        this.error = null
+        const res = await login(this.email, this.password)
+        if (!res.Sucess) this.error = res.Cause
+        this.$store.dispatch('signIn', res)
+      } catch (error) {
+        console.log(new Error(error))
+      }
     }
   }
 }
@@ -59,11 +60,13 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     .wrapper {
       width: 100%;
       display:flex;
       flex-direction: column;
       align-items: center;
+      height: 462px;
     }
     .header {
       width: 100%;
@@ -89,8 +92,10 @@ export default {
       }
     }
     .input-group {
-      margin-bottom: 70px;
       width: 100%;
+    }
+    .button-group {
+      margin-top: 10px;
     }
   }
   @media screen and (min-width: $desktop-width) {

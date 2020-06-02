@@ -10,6 +10,8 @@ from . import db
 from .utils import extract, row2dict
 from .auth import jwt
 from flask import current_app as app
+
+from flask_cors import cross_origin
 import json
 
 main = Blueprint('main', __name__)
@@ -19,11 +21,11 @@ def token_required(f):
     def decorated(*args, **kwargs):
         token = None
 
-        if 'x-access-token' in request.headers:
-            token = request.headers['x-access-token']
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization']
         #print(token)
         if not token:
-            return jsonify({'Sucess':False,'message' : 'Token is missing!'}), 401
+            return jsonify({'sucess':False,'message' : 'Token is missing!'}), 401
 
         try: 
             data = jwt.decode(token, app.config['SECRET_KEY'])
@@ -32,7 +34,7 @@ def token_required(f):
             
         except Exception as e:
             
-            return jsonify({'Sucess':False,'message' : 'Token is invalid!'}), 401
+            return jsonify({'sucess':False,'message' : 'Token is invalid!'}), 401
 
         return f(current_user, *args, **kwargs)
 
@@ -59,13 +61,14 @@ def get_all_users(current_user):
     return jsonify({'users' : output})
 
 @main.route('/public/profile/<username>')
+@cross_origin()
 @token_required
 def public_profile(current_user,username):
   print(username)
   posts = Post.query.filter_by(username=username)
   user = User.query.filter_by(name=username).first()
   if user is None:
-    return jsonify({"Sucess":False})
+    return jsonify({"sucess":False})
 
 
   my_upvotes = db.session.query(Upvote.id_post).filter(Upvote.upvoter == current_user.name).all()
@@ -93,7 +96,7 @@ def public_profile(current_user,username):
   if user_upvotes is None:
     user_upvotes = 0
   obj_ret = {
-      "Sucess":True,
+      "sucess":True,
       "posts": [row2dict(i) for i in posts],
       "user":row2dict(user),
       "user_upvotes":user_upvotes,
@@ -103,6 +106,7 @@ def public_profile(current_user,username):
   return jsonify(obj_ret)
 
 @main.route('/posts')
+@cross_origin()
 @token_required
 def posts(current_user):
   posts = Post.query.order_by(Post.upvotes.desc()).all()
@@ -123,13 +127,14 @@ def posts(current_user):
   ret = {
       "button": button,
       "posts":posts_ret,
-      "Sucess":True
+      "sucess":True
   }
   return jsonify(ret)
 
 
 @main.route('/post', methods=['POST'])
 @token_required
+@cross_origin()
 def makepost(current_user):
     payload = json.loads(request.data)
     if payload['title'] == '' or payload['description'] == '':
@@ -142,4 +147,4 @@ def makepost(current_user):
         link=payload['link'])
     db.session.add(create_post)
     db.session.commit()
-    return {'Sucess':True}
+    return {'sucess':True}

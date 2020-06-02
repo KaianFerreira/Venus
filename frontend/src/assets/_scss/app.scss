@@ -1,4 +1,6 @@
+@import './variables.scss';
 @import './form.scss';
+@import './button.scss';
 
 * {
   padding: 0;
@@ -33,4 +35,9 @@ html, body {
 
 .container {
   height: 100%;
+}
+
+.error {
+  margin: 20px;
+  color: #ff0000;
 }

@@ -13,4 +13,9 @@ export default [
     name: 'signup',
     component: () => import(/* webpackChunkName: "main" */ '../components/SignUp.vue')
   }
+  {
+    path: '/teste',
+    name: 'teste',
+    component: () => import(/* webpackChunkName: "main" */ '../components/postList.vue')
+  }
 ]

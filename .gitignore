@@ -1,1 +1,3 @@
-.pyc
+*.pyc
+./package-lock.json
+frontend/package-lock.json
