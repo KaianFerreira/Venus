@@ -1,11 +1,6 @@
 import api from '../libs/api'
-import { getToken } from '../libs/token'
 
 const getAll = async () => {
-  const token = getToken()
-  // console.log(token)
-  if (token) api.defaults.headers.Authorization = `${token}`
-  console.log(api.defaults.headers.Authorization)
   const { data } = await api.get('posts')
   return data
 }

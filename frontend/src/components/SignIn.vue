@@ -46,6 +46,7 @@ export default {
         const res = await login(this.email, this.password)
         if (!res.Sucess) this.error = res.Cause
         this.$store.dispatch('signIn', res)
+        this.$router.push('/teste')
       } catch (error) {
         console.log(new Error(error))
       }
@@ -84,9 +85,9 @@ export default {
         display: flex;
         align-items: center;
         align-self: flex-start;
-        width: 100px;
         height: 50px;
         font-size: 1.6em;
+        padding-left: 10px;
         justify-content: center;
         border-left: 6px solid #0049FF;
       }

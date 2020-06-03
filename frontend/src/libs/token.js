@@ -1,4 +1,4 @@
-// import api from './api'
+import api from './api'
 
 const SESSION_NAME = 'venusSession'
 
@@ -9,6 +9,11 @@ const getToken = () => {
 
 const setToken = (token) => {
   localStorage.setItem(SESSION_NAME, JSON.stringify(token))
+  api.defaults.headers.Authorization = token
+}
+
+const setApiHeaders = (token) => {
+  api.defaults.headers.Authorization = token
 }
 
 const removeToken = () => {
@@ -20,5 +25,6 @@ const removeToken = () => {
 export {
   getToken,
   setToken,
+  setApiHeaders,
   removeToken
 }

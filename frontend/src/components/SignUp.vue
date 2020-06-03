@@ -84,10 +84,10 @@ export default {
         display: flex;
         align-items: center;
         align-self: flex-start;
-        width: 100px;
         height: 50px;
         font-size: 1.6em;
         justify-content: center;
+        padding-left: 10px;
         border-left: 6px solid #0049FF;
       }
     }

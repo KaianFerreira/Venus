@@ -16,6 +16,6 @@ export default [
   {
     path: '/teste',
     name: 'teste',
-    component: () => import(/* webpackChunkName: "main" */ '../components/postList.vue')
+    component: () => import(/* webpackChunkName: "user" */ '../components/postList.vue')
   }
 ]

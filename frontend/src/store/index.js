@@ -11,7 +11,8 @@ export default new Vuex.Store({
     user: null
   },
   mutations: {
-    loaded (state, data) { state.loaded = data }
+    loaded (state, data) { state.loaded = data },
+    user (state, data) { state.user = data }
   },
   actions: {
     loaded (store) {

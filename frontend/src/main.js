@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './components/App.vue'
 import router from './router'
 import store from './store'
-// import { getToken } from './libs/token'
+import { getToken, setApiHeaders } from './libs/token'
 Vue.config.productionTip = false
 
 Vue.component('Input', () => import('./components/Input.vue'))
@@ -12,14 +12,14 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-// const start = async () => {
-//   try {
-//     if (getToken()) {
+const start = async () => {
+  try {
+    if (getToken()) {
+      setApiHeaders(getToken())
+    }
+  } catch (error) {
+    store.dispatch('signOut')
+  }
+}
 
-//     }
-//   } catch (error) {
-//     store.dispatch('signOut')
-//   }
-// }
-
-// start()
+start()
