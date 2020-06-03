@@ -13,10 +13,11 @@
           <Input :return="inputPassword" label='Senha' Type='password'/>
           <Input :return="inputPasswordConfirmation" label='Confirme a senha' Type='password'/>
         </div>
-        <div class="button-group">
-          <button @click="$router.push('/signin')" class="btn secondary">Cancelar</button>
-          <button @click="signUp()" class="btn primary">Continuar</button>
-        </div>
+        <span class="error" style="align-self: flex-start">{{ error }}</span>
+      </div>
+      <div class="button-group">
+        <button @click="$router.push('/signin')" class="btn secondary">Cancelar</button>
+        <button @click="signUp()" class="btn primary">Continuar</button>
       </div>
     </div>
   </section>
@@ -24,6 +25,7 @@
 
 <script>
 import Input from './Input'
+import { singup } from '../api/core'
 export default {
   components: {
     Input
@@ -31,8 +33,9 @@ export default {
   data () {
     return {
       login: true,
-      email: null,
-      password: null,
+      email: '',
+      password: '',
+      error: null,
       passwordConfirmation: null
     }
   },
@@ -46,11 +49,18 @@ export default {
     inputPasswordConfirmation (value) {
       this.passwordConfirmation = value
     },
-    signUp () {
-      console.log('tentando cadastrar')
-    },
-    cancel () {
-      console.log('cancelando')
+    async signUp () {
+      try {
+        if (this.password !== this.passwordConfirmation) this.error = 'Confirmação de senha inválida'
+        else {
+          this.error = null
+          const res = await singup(this.login, this.password)
+          if (!res.sucess) this.error = res.cause
+          else throw new Error(res.cause)
+        }
+      } catch (error) {
+        this.error = error
+      }
     }
   }
 }
@@ -64,6 +74,7 @@ export default {
     align-items: center;
     .wrapper {
       width: 100%;
+      height: 500px;
       display:flex;
       flex-direction: column;
       align-items: center;
@@ -73,7 +84,6 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 30px;
       .logo {
         margin: 20px 0;
         color: #00CEF5;
@@ -92,7 +102,6 @@ export default {
       }
     }
     .input-group {
-      margin-bottom: 70px;
       width: 100%;
     }
   }
@@ -101,7 +110,7 @@ export default {
       display: flex;
       justify-content: flex-end;
       align-items: flex-start;
-      height:100%;
+      height: 100%;
       background-color: #0C84E8;
     }
     .input-group {

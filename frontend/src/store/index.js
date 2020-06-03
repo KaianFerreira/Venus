@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '../router'
 import { setToken, removeToken } from '../libs/token'
 Vue.use(Vuex)
 
@@ -25,12 +26,14 @@ export default new Vuex.Store({
     async signIn (store, data) {
       store.commit('user', data.user)
       setToken(data.token)
+      router.push('/')
       // should set the signIn token here
       store.dispatch('loaded')
     },
     signOut (store) {
       store.commit('user', null)
       removeToken()
+      router.push('/signin')
       store.dispatch('loaded')
     }
   }

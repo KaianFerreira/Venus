@@ -44,10 +44,11 @@ export default {
       try {
         this.error = null
         const res = await login(this.email, this.password)
-        if (!res.Sucess) this.error = res.Cause
+        console.log(res)
+        if (!res.sucess) throw new Error(res.cause)
         this.$store.dispatch('signIn', res)
-        this.$router.push('/teste')
       } catch (error) {
+        this.error = error
         console.log(new Error(error))
       }
     }
@@ -61,20 +62,20 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
     justify-content: space-between;
     .wrapper {
       width: 100%;
+      height: 500px;
       display:flex;
       flex-direction: column;
       align-items: center;
-      height: 462px;
     }
     .header {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 30px;
       .logo {
         margin: 20px 0;
         color: #00CEF5;
@@ -95,9 +96,6 @@ export default {
     .input-group {
       width: 100%;
     }
-    .button-group {
-      margin-top: 10px;
-    }
   }
   @media screen and (min-width: $desktop-width) {
     .container {
@@ -117,7 +115,6 @@ export default {
         padding-top: 150px;
       }
       justify-content: flex-start;
-      height: 100%;
       width: 500px;
     }
   }

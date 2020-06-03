@@ -17,8 +17,8 @@ const setApiHeaders = (token) => {
 }
 
 const removeToken = () => {
-  // delete api.defaults.headers.Authorization
-  // localStorage.removeItem(SESSION_NAME)
+  delete api.defaults.headers.Authorization
+  localStorage.removeItem(SESSION_NAME)
   return null
 }
 
