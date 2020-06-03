@@ -133,15 +133,15 @@ def posts(current_user):
 
 
 @main.route('/post', methods=['POST'])
-@token_required
 @cross_origin()
+@token_required
 def makepost(current_user):
     payload = json.loads(request.data)
     if payload['title'] == '' or payload['description'] == '':
-        return {'Sucess':False} 
+        return {'sucess':False} 
 
     create_post = Post(
-        username=current_user.name.decode("utf-8"),
+        username=current_user.name,
         title=payload['title'],
         description=payload['description'],
         link=payload['link'])
