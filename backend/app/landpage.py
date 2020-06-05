@@ -105,9 +105,11 @@ def posts(current_user):
         post.upvote = 'Upvote'
    
     error = None
+    posts_ret = [i.__dict__ for i in posts]
+    [i.pop('_sa_instance_state',None) for i in posts_ret]
   else:
     error = 'You don\'t have any content.'
-  posts_ret = [row2dict(i) for i in posts]
+  #print(posts_ret)
   ret = {
       "button": button,
       "posts":posts_ret,
@@ -134,8 +136,8 @@ def posts_followed(current_user):
       error = None
   else:
     error = 'You don\'t have any content.'
-    posts_ret = [row2dict(i) for i in posts]
-    ret = {
+  posts_ret = [row2dict(i) for i in posts]
+  ret = {
         "button": button,
         "posts":posts_ret,
         "sucess":True

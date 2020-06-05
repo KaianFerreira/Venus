@@ -1,26 +1,18 @@
 <template>
   <section class="container">
-    <div class="login-form">
       <div class="wrapper">
-        <div class="header">
-          <div class="logo">
-            Venus
-          </div>
-          <div class="title">Login</div>
-        </div>
-        <div class="input-group">
-          <Input :return="inputUser" label='Consultar posts usuario' Type='text'/>
-        </div>
         <span class="error" style="align-self: flex-start">{{ error }}</span>
       </div>
-      <div class="button-group">
-        <button class="btn secondary" @click="postListUser()" >Listar usuario</button>
-        <button class="btn primary" @click="postList()">Login</button>
-      </div>
       <div v-for="post in posts" :key="post.id">
-        {{ post.description }}: {{ post.link }}
+        <h1>{{ post.title }}</h1>
+        <span>{{ post.link }}</span>
+        <p>{{ post.description }}</p>
+        <div>
+          upvotes: {{ post.upvotes }}
+          <button class="btn primary" @click="upvote()">Up</button>
+        </div>
+        {{ post }}
       </div>
-    </div>
   </section>
 </template>
 
@@ -33,6 +25,9 @@ export default {
       posts: [],
       error: null
     }
+  },
+  mounted () {
+    this.postList()
   },
   methods: {
     inputUser (value) {

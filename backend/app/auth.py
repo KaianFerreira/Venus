@@ -40,7 +40,7 @@ def login_post():
                 "sucess":True,
                 "token":token.decode('UTF-8'),
                 "cause":"Your log in on"
-                }), 400
+                }), 200
 
 
 @auth.route('/signup', methods=['POST'])

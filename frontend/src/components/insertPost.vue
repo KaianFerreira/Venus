@@ -17,7 +17,7 @@
       </div>
       <div class="button-group">
         <button class="btn secondary">Cadastrar</button>
-        <button class="btn primary" @click="teste()">Login</button>
+        <button class="btn primary" @click="insertPost()">Login</button>
       </div>
     </div>
   </section>
@@ -44,7 +44,7 @@ export default {
     inputTitle (value) {
       this.title = value
     },
-    async teste () {
+    async insertPost () {
       try {
         this.error = null
         const res = await create(this.descricao, this.link, this.title)

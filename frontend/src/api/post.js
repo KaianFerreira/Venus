@@ -14,13 +14,41 @@ const create = async (description, link, title) => {
   return data
 }
 
+const update = async (id, description, link, title) => {
+  const { data } = await api.put(`editPost/${id}`, {
+    description,
+    link,
+    title
+  })
+  return data
+}
+
+const remove = async (id) => {
+  const { data } = await api.delete(`deletePost/${id}`)
+  return data
+}
+
 const getAllUser = async (usuario) => {
   const { data } = await api.get(`public/profile/${usuario}`)
+  return data
+}
+
+const follow = async (usuario) => {
+  const { data } = await api.get(`follow/${usuario}`)
+  return data
+}
+
+const upvote = async (idPost) => {
+  const { data } = await api.get(`upvote/${idPost}`)
   return data
 }
 
 export {
   getAll,
   create,
-  getAllUser
+  update,
+  remove,
+  getAllUser,
+  follow,
+  upvote
 }
