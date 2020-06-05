@@ -25,7 +25,7 @@ def token_required(f):
             token = request.headers['Authorization']
         #print(token)
         if not token:
-            return jsonify({'sucess':False,'message' : 'Token is missing!'}), 401
+            return jsonify({'sucess':False,'cause' : 'Token is missing!'}), 401
 
         try: 
             data = jwt.decode(token, app.config['SECRET_KEY'])
@@ -34,41 +34,25 @@ def token_required(f):
             
         except Exception as e:
             
-            return jsonify({'sucess':False,'message' : 'Token is invalid!'}), 401
+            return jsonify({'sucess':False,'cause' : 'Token is invalid!'}), 401
 
         return f(current_user, *args, **kwargs)
 
     return decorated
 
 
-def get_all_users(current_user):
-
-    if not current_user.admin:
-        return jsonify({'message' : 'Cannot perform that function!'})
-
-    users = User.query.all()
-
-    output = []
-
-    for user in users:
-        user_data = {}
-        user_data['public_id'] = user.public_id
-        user_data['name'] = user.name
-        user_data['password'] = user.password
-        user_data['admin'] = user.admin
-        output.append(user_data)
-
-    return jsonify({'users' : output})
 
 @main.route('/public/profile/<username>')
 @cross_origin()
 @token_required
 def public_profile(current_user,username):
-  print(username)
+  
   posts = Post.query.filter_by(username=username)
   user = User.query.filter_by(name=username).first()
   if user is None:
-    return jsonify({"sucess":False})
+    return jsonify({"sucess":False,
+                    "cause":"Usuario nao encontrado"
+                    }),400
 
 
   my_upvotes = db.session.query(Upvote.id_post).filter(Upvote.upvoter == current_user.name).all()
@@ -132,13 +116,41 @@ def posts(current_user):
   return jsonify(ret)
 
 
+@main.route('/posts/followed')
+@cross_origin()
+@token_required
+def posts_followed(current_user):
+  posts = db.session.query(Post).join(Follow, Post.username == Follow.followed).filter(Follow.follower == current_user.name).order_by(Post.upvotes.desc()).all()
+  my_upvotes = db.session.query(Upvote.id_post).filter(Upvote.upvoter == current_user.name).all()
+  my_upvotes = extract(my_upvotes)
+  button = {'text':'Veja somente pessoas que você segue', 'url': url_for('main.posts') }
+  if posts:
+    for post in posts:
+      if post.id in my_upvotes:
+        post.upvote = 'Downvote'
+      else:
+        post.upvote = 'Upvote'
+    
+      error = None
+  else:
+    error = 'You don\'t have any content.'
+    posts_ret = [row2dict(i) for i in posts]
+    ret = {
+        "button": button,
+        "posts":posts_ret,
+        "sucess":True
+    }
+  return jsonify(ret)
+
+
+
 @main.route('/post', methods=['POST'])
 @cross_origin()
 @token_required
 def makepost(current_user):
     payload = json.loads(request.data)
-    if payload['title'] == '' or payload['description'] == '':
-        return {'sucess':False} 
+    if payload['title'] == '' or payload['title'] is None or payload['description'] == '' or payload['description'] is None :
+        return jsonify({'sucess':False, "cause":"Todos os campos são obrigatorios"}), 400
 
     create_post = Post(
         username=current_user.name,
@@ -147,4 +159,81 @@ def makepost(current_user):
         link=payload['link'])
     db.session.add(create_post)
     db.session.commit()
-    return {'sucess':True}
+    return jsonify({'sucess':True})
+
+
+@main.route('/deletePost/<int:id_post>', methods=['DELETE'])
+@cross_origin()
+@token_required
+def deletePost(current_user,id_post):
+  post = Post.query.filter_by(id=id_post).first()
+  if post:
+    if current_user.name == post.username or current_user.name == "admin1":
+      db.session.delete(post)
+      db.session.query(Upvote).filter(Upvote.id_post == id_post).delete()
+      db.session.commit()
+    else:
+      return jsonify({"sucess":False,
+                    "cause":"Não é possivel deletar a postagem de outro usuário"
+                    }),400 
+    return jsonify({'sucess':True})
+  else:
+    return jsonify({"sucess":False,
+                    "cause":"Post nao encontrado"
+                    }),400
+
+
+@main.route('/editPost/<int:id_post>', methods=['PUT'])
+@cross_origin()
+@token_required
+def editPost(current_user,id_post):
+  payload = json.loads(request.data)
+  post = Post.query.filter_by(id=id_post).first()
+  post.title = payload['title']
+  post.description = payload['description']
+  post.link = payload['link']
+  db.session.commit()
+  return jsonify({'sucess':True})
+
+
+
+@main.route('/follow/<username>', methods=['GET'])
+@cross_origin()
+@token_required
+def follow(current_user,username):
+	followable = Follow.query.filter_by(
+	    follower=current_user.name, followed=username).first()
+
+	if followable is None:
+		create_follow = Follow(follower=current_user.name, followed=username)
+		# deleted sqlite file, this restarted us database
+
+		db.session.add(create_follow)
+		db.session.commit()
+	else:
+		db.session.delete(followable)
+		db.session.commit()
+	return  jsonify({'sucess':True})
+
+@main.route('/upvote/<int:id_post>', methods=['GET'])
+@cross_origin()
+@token_required
+def upvote(current_user,id_post):
+	#print(request.form['link'])
+	upvotable = Upvote.query.filter_by(
+	    upvoter=current_user.name, id_post=id_post).first()
+
+	if upvotable is None:
+		post = Post.query.filter_by(id=id_post).first()
+		create_upvote = Upvote(id_post=id_post, upvoter=current_user.name)
+		# deleted sqlite file, this restarted us database
+		post.upvotes += 1
+		db.session.add(create_upvote)
+		db.session.commit()
+	else:
+		post = Post.query.filter_by(id=id_post).first()
+		db.session.delete(upvotable)
+		db.session.query(Upvote).filter(Upvote.id_post == id_post).delete()
+		post.upvotes -= 1
+		db.session.commit()
+	return jsonify({'sucess':True})

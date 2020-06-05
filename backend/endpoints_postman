@@ -3,11 +3,108 @@
   "name": "Venus",
   "requests": [
     {
+      "id": "ad0b4d10-5f3c-42a4-ac97-1373196e3544",
+      "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
+      "method": "GET",
+      "url": "http://0.0.0.0:3000/upvote/1",
+      "headers": "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoxLCJleHAiOjE1OTEzOTExOTR9.TVNATZeRzbbGpU9g0h0dsADBHfQXdFtZn4Y16EFGkIM\nContent-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "description",
+          "value": "Teste3",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "link",
+          "value": "teste.com",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "title",
+          "value": "testeeee",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    },
+    {
+      "id": "cdd15c6a-eff7-46c4-ae16-f02baa9eb42d",
+      "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
+      "method": "GET",
+      "url": "http://0.0.0.0:3000/follow/fernandods2",
+      "headers": "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoxLCJleHAiOjE1OTEzOTExOTR9.TVNATZeRzbbGpU9g0h0dsADBHfQXdFtZn4Y16EFGkIM\nContent-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "description",
+          "value": "Teste3",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "link",
+          "value": "teste.com",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "title",
+          "value": "testeeee",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    },
+    {
+      "id": "fdd0996b-89f8-4e97-9a91-b0d9e6e3e5d3",
+      "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
+      "method": "PUT",
+      "url": "http://0.0.0.0:3000/editPost/1",
+      "headers": "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoxLCJleHAiOjE1OTEzOTExOTR9.TVNATZeRzbbGpU9g0h0dsADBHfQXdFtZn4Y16EFGkIM\nContent-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "description",
+          "value": "Teste3",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "link",
+          "value": "teste.com",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "title",
+          "value": "testeeee",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    },
+    {
+      "id": "49174ef3-5713-409e-8bec-b4f500347a3f",
+      "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
+      "method": "DELETE",
+      "url": "http://0.0.0.0:3000/deletePost/2",
+      "headers": "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoxLCJleHAiOjE1OTEzOTExOTR9.TVNATZeRzbbGpU9g0h0dsADBHfQXdFtZn4Y16EFGkIM\nContent-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [],
+      "rawModeData": []
+    },
+    {
       "id": "182752d5-e432-417e-8d03-5a852077bb05",
       "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
       "method": "POST",
-      "url": "http://0.0.0.0:8080/post",
-      "headers": "x-access-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjo1LCJleHAiOjE1OTA0OTk5MTl9.hngRobMh3rc_xX45gOsX8XBIzLCIftBMSdEpzQHcBRo\nContent-Type: application/json\n",
+      "url": "http://0.0.0.0:3000/post",
+      "headers": "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoxLCJleHAiOjE1OTEzOTExOTR9.TVNATZeRzbbGpU9g0h0dsADBHfQXdFtZn4Y16EFGkIM\nContent-Type: application/json\n",
       "dataMode": "urlencoded",
       "data": [
         {
@@ -35,8 +132,8 @@
       "id": "4aae6c23-caaa-4837-95fc-2012bf603bc3",
       "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
       "method": "GET",
-      "url": "http://0.0.0.0:8080/public/profile/Aryamann Sheoran",
-      "headers": "x-access-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjo1LCJleHAiOjE1OTA0OTk5MTl9.hngRobMh3rc_xX45gOsX8XBIzLCIftBMSdEpzQHcBRo\n",
+      "url": "http://0.0.0.0:3000/public/profile/fernandods",
+      "headers": "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoxLCJleHAiOjE1OTEzOTExOTR9.TVNATZeRzbbGpU9g0h0dsADBHfQXdFtZn4Y16EFGkIM\n",
       "dataMode": "urlencoded",
       "data": [
         {
@@ -58,8 +155,8 @@
       "id": "4f0aeb02-59dc-48a1-b8ad-106e4bb29b3b",
       "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
       "method": "GET",
-      "url": "http://0.0.0.0:8080/posts",
-      "headers": "x-access-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiZmVybmFuZG9kc2RzQGdtYWlsLmNvbSIsImV4cCI6MTU5MDQ5OTM1MH0.jmnVYF9vmrPS1qIWaPuK9A9Nk8weZ2y-3KQtd_D8RWw\n",
+      "url": "http://0.0.0.0:3000/posts",
+      "headers": "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiZmVybmFuZG9kc2RzQGdtYWlsLmNvbSIsImV4cCI6MTU5MDQ5OTM1MH0.jmnVYF9vmrPS1qIWaPuK9A9Nk8weZ2y-3KQtd_D8RWw\n",
       "dataMode": "urlencoded",
       "data": [
         {
@@ -81,7 +178,7 @@
       "id": "51b5f9c5-a894-478c-aad6-317af57a5e01",
       "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
       "method": "POST",
-      "url": "http://0.0.0.0:8080/login",
+      "url": "http://0.0.0.0:3000/login",
       "headers": "\n",
       "dataMode": "urlencoded",
       "data": [
@@ -104,7 +201,7 @@
       "id": "9a07386d-a3bd-4d13-8619-c274fb82ce07",
       "collectionId": "e48ae2d6-6e9b-4020-b46f-9ff3a659ead6",
       "method": "POST",
-      "url": "http://0.0.0.0:8080/signup",
+      "url": "http://0.0.0.0:3000/signup",
       "headers": "\n",
       "dataMode": "urlencoded",
       "data": [

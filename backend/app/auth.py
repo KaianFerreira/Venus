@@ -20,8 +20,8 @@ def login_post():
         return jsonify({
         
         "sucess":False,
-        "cause":"Please check your login details and try again."
-        })
+        "cause":"Por favor verifique seu usuário e senha"
+        }), 400
     email = payload['email']
     password = str(payload['password'])
 
@@ -31,9 +31,8 @@ def login_post():
         return jsonify({
                 
                 "sucess":False,
-                "cause":"Please check your login details and try again."
-                })
-
+                "cause":"Por favor verifique seu usuário e senha"
+                }),400
     token = jwt.encode({"user":user.id,"exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
 
     return  jsonify({
@@ -41,24 +40,32 @@ def login_post():
                 "sucess":True,
                 "token":token.decode('UTF-8'),
                 "cause":"Your log in on"
-                })
+                }), 400
 
-@auth.route('/signup')
-@cross_origin()
-def signup():
-    return render_template('signup.html')
 
 @auth.route('/signup', methods=['POST'])
 @cross_origin()
 def signup_post():
 
     payload = json.loads(request.data)
-    if  payload['password']  is None or payload['email'] is None or payload['name'] is None:
+    if  payload['password']  is None or payload['password']  == "":
         return jsonify({
-        
         "sucess":False,
-        "cause":"Please check your login details and try again."
-        })
+        "cause":"A senha não pode ser vazia"
+        }), 400
+
+    if  payload['email']  is None or payload['email']  == "":
+        return jsonify({
+        "sucess":False,
+        "cause":"O email não pode ser vazio"
+        }), 400
+
+    if  payload['name']  is None or payload['name']  == "":
+        return jsonify({ 
+        "sucess":False,
+        "cause":"O nome não pode ser vazio"
+       }), 400
+       
     email = payload['email']
     name = payload['name']
     password = str(payload['password'])
@@ -66,8 +73,7 @@ def signup_post():
     user = User.query.filter_by(email=email).first()
 
     if user:
-        flash('Email address already exists.')
-        return jsonify({"success":False})
+        return jsonify({"success":False, "cause":"Email address already exists."}), 400
 
     new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'))
 
