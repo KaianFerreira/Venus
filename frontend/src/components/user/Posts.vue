@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getAll, getAllUser, upvote, remove } from '../api/post'
+import { getAll, getAllUser, upvote, remove } from '../../api/post'
 export default {
   data () {
     return {

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import insertPost from './insertPost'
-import postList from './postList'
+import insertPost from './user/insertPost'
+import postList from './user/Posts'
 export default {
   components: {
     insertPost,

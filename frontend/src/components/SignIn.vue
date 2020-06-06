@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <div class="login-form">
+    <form @submit.prevent="signIn" class="login-form">
       <div class="wrapper">
         <div class="header">
           <div class="logo">
@@ -9,16 +9,16 @@
           <div class="title">Login</div>
         </div>
         <div class="input-group">
-          <Input :return="inputEmail" label='Email' Type='text'/>
-          <Input :return="inputPassword" label='Password' Type='password'/>
+          <Input v-model="email" label='Email' Type='text'/>
+          <Input v-model="password" label='Password' Type='password'/>
         </div>
         <span class="error" style="align-self: flex-start">{{ error }}</span>
       </div>
       <div class="button-group">
-        <button @click="$router.push('/signup')" class="btn secondary">Cadastrar</button>
-        <button class="btn primary" @click="signIn()">Login</button>
+        <button type="button" @click="$router.push('/signup')" name="register" class="btn secondary">Cadastrar</button>
+        <button type="submit" name="login" class="btn primary">Login</button>
       </div>
-    </div>
+    </form>
   </section>
 </template>
 
@@ -34,88 +34,16 @@ export default {
     }
   },
   methods: {
-    inputEmail (value) {
-      this.email = value
-    },
-    inputPassword (value) {
-      this.password = value
-    },
     async signIn () {
       try {
         this.error = null
         const res = await login(this.email, this.password)
-        console.log(res)
-        if (!res.sucess) throw new Error(res.cause)
         this.$store.dispatch('signIn', res)
       } catch (error) {
-        this.error = error
+        this.error = error.response ? error.response.data.cause : {}
         console.log(new Error(error))
       }
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../assets/_scss/variables.scss";
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    justify-content: space-between;
-    .wrapper {
-      width: 100%;
-      height: 500px;
-      display:flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .header {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .logo {
-        margin: 20px 0;
-        color: #00CEF5;
-        font-family: Satisfy;
-        font-size: 4em;
-      }
-      .title {
-        display: flex;
-        align-items: center;
-        align-self: flex-start;
-        height: 50px;
-        font-size: 1.6em;
-        padding-left: 10px;
-        justify-content: center;
-        border-left: 6px solid #0049FF;
-      }
-    }
-    .input-group {
-      width: 100%;
-    }
-  }
-  @media screen and (min-width: $desktop-width) {
-    .container {
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-start;
-      height:100%;
-      background-color: #0C84E8;
-    }
-    .input-group {
-      font-size: 15px;
-    }
-    .login-form {
-      background-color: white;
-      display: flex;
-      .wrapper {
-        padding-top: 150px;
-      }
-      justify-content: flex-start;
-      width: 500px;
-    }
-  }
-</style>
