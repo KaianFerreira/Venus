@@ -6,7 +6,7 @@
     </div>
     <br>
     <br>
-    <Input :return="inputMessage" label='Message' Type='text'/>
+    <Input v-model="messageObj.message" label='Message' Type='text'/>
     <button @click="sendMessage()">Enviar</button>
   </div>
 </template>

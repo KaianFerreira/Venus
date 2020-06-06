@@ -16,6 +16,6 @@ export default [
   {
     path: '/',
     name: 'teste',
-    component: () => import(/* webpackChunkName: "user" */ '../components/Chat.vue')
+    component: () => import(/* webpackChunkName: "user" */ '../components/user/Social.vue')
   }
 ]

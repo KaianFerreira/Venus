@@ -41,22 +41,20 @@ def token_required(f):
     return decorated
 
 
-
 @main.route('/public/profile/<username>')
 @cross_origin()
 @token_required
 def public_profile(current_user,username):
-  
   posts = Post.query.filter_by(username=username)
   user = User.query.filter_by(name=username).first()
   if user is None:
     return jsonify({"sucess":False,
                     "cause":"Usuario nao encontrado"
-                    }),400
-
+                    }),400 
 
   my_upvotes = db.session.query(Upvote.id_post).filter(Upvote.upvoter == current_user.name).all()
   my_upvotes = extract(my_upvotes)
+
   if posts:
     for post in posts:
       if post.id in my_upvotes:
@@ -66,6 +64,7 @@ def public_profile(current_user,username):
 
   followable = Follow.query.filter_by(
       follower=current_user.name, followed=username).first()
+
   if followable is None:
     followable_style = 'is-info'
     followable = 'Follow'
@@ -77,6 +76,7 @@ def public_profile(current_user,username):
       Post.upvotes)).filter(Post.username == username).one()[0]
   user_followers = db.session.query(func.count(
       Follow.follower)).filter(Follow.followed == username).one()[0]
+
   if user_upvotes is None:
     user_upvotes = 0   
 
@@ -91,6 +91,25 @@ def public_profile(current_user,username):
       "followable":followable,
   }
   return jsonify(obj_ret)
+
+@main.route('/private/profile')
+@cross_origin()
+@token_required
+def private_profile(current_user):
+  if current_user is None:
+    return jsonify({"sucess":False,
+                    "cause":"Usuario nao encontrado"
+                    }),400  
+  following = Follow.query.filter_by(
+      follower=current_user.name)
+  following = row2dict(following)
+  followers = Follow.query.filter_by(
+      followed=current_user.name) 
+  followers = row2dict(followers)
+  return jsonify({"sucess":True,
+                  "followers": followers,
+                  "following": following
+                  }) 
 
 @main.route('/posts')
 @cross_origin()
@@ -206,19 +225,21 @@ def editPost(current_user,id_post):
 @cross_origin()
 @token_required
 def follow(current_user,username):
-	followable = Follow.query.filter_by(
-	    follower=current_user.name, followed=username).first()
+  if current_user.name == username:
+    return  jsonify({'sucess':False, 'cause': 'followed equal following'}),400
+  followable = Follow.query.filter_by(
+    follower=current_user.name, followed=username).first()
 
-	if followable is None:
-		create_follow = Follow(follower=current_user.name, followed=username)
-		# deleted sqlite file, this restarted us database
+  if followable is None:
+    create_follow = Follow(follower=current_user.name, followed=username)
+    # deleted sqlite file, this restarted us database
 
-		db.session.add(create_follow)
-		db.session.commit()
-	else:
-		db.session.delete(followable)
-		db.session.commit()
-	return  jsonify({'sucess':True})
+    db.session.add(create_follow)
+    db.session.commit()
+  else:
+    db.session.delete(followable)
+    db.session.commit()
+  return  jsonify({'sucess':True})
 
 @main.route('/upvote/<int:id_post>', methods=['GET'])
 @cross_origin()
