@@ -78,10 +78,13 @@ def public_profile(current_user,username):
   user_followers = db.session.query(func.count(
       Follow.follower)).filter(Follow.followed == username).one()[0]
   if user_upvotes is None:
-    user_upvotes = 0
+    user_upvotes = 0   
+
+  posts_ret = [i.__dict__ for i in posts]
+  [i.pop('_sa_instance_state',None) for i in posts_ret] 
   obj_ret = {
       "sucess":True,
-      "posts": [row2dict(i) for i in posts],
+      "posts": posts_ret,
       "user":row2dict(user),
       "user_upvotes":user_upvotes,
       "user_followers":user_followers,
@@ -105,11 +108,10 @@ def posts(current_user):
         post.upvote = 'Upvote'
    
     error = None
-    posts_ret = [i.__dict__ for i in posts]
-    [i.pop('_sa_instance_state',None) for i in posts_ret]
   else:
     error = 'You don\'t have any content.'
-  #print(posts_ret)
+  posts_ret = [i.__dict__ for i in posts]
+  [i.pop('_sa_instance_state',None) for i in posts_ret]
   ret = {
       "button": button,
       "posts":posts_ret,
@@ -136,7 +138,8 @@ def posts_followed(current_user):
       error = None
   else:
     error = 'You don\'t have any content.'
-  posts_ret = [row2dict(i) for i in posts]
+  posts_ret = [i.__dict__ for i in posts]
+  [i.pop('_sa_instance_state',None) for i in posts_ret]
   ret = {
         "button": button,
         "posts":posts_ret,

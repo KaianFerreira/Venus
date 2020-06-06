@@ -9,15 +9,17 @@
         <p>{{ post.description }}</p>
         <div>
           upvotes: {{ post.upvotes }}
-          <button class="btn primary" @click="upvote()">Up</button>
+          <button class="btn primary" @click="upvote(post.id)">{{ post.upvote }}</button>
+         <button v-if="post.username == 'fernandods'" @click="remove(post.id)"> Deletar </button>
+         <button v-if="post.username == 'fernandods'"> Editar  </button>
         </div>
-        {{ post }}
+        <a> {{ post.username }} </a>
       </div>
   </section>
 </template>
 
 <script>
-import { getAll, getAllUser } from '../../api/post'
+import { getAll, getAllUser, upvote, remove } from '../../api/post'
 export default {
   data () {
     return {
@@ -53,6 +55,26 @@ export default {
       } catch (error) {
         console.log(new Error(error))
       }
+    },
+    async upvote (id) {
+      try {
+        this.error = null
+        const res = await upvote(id)
+        if (!res.Sucess) this.error = res.Cause
+      } catch (error) {
+        console.log(new Error(error))
+      }
+      this.postList()
+    },
+    async remove (id) {
+      try {
+        this.error = null
+        const res = await remove(id)
+        if (!res.Sucess) this.error = res.Cause
+      } catch (error) {
+        console.log(new Error(error))
+      }
+      this.postList()
     }
   }
 }
