@@ -7,6 +7,7 @@ db = SQLAlchemy()
 
 
 def create_app():
+
     app = Flask(__name__)
     cors = CORS(app)
     app.config['CORS_HEADERS'] = 'Content-Type' 
@@ -25,6 +26,5 @@ def create_app():
 
     from .landpage import main as main_blueprint
     app.register_blueprint(main_blueprint)
-
     return app
 
