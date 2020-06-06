@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { create } from '../api/post'
+import { create } from '../../api/post'
 export default {
   data () {
     return {

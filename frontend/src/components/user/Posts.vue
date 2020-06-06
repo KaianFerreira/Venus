@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { getAll, getAllUser } from '../api/post'
+import { getAll, getAllUser } from '../../api/post'
 export default {
   data () {
     return {

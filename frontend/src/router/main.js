@@ -1,7 +1,7 @@
 export default [
   {
     path: '*',
-    redirect: '/signin'
+    redirect: '/'
   },
   {
     path: '/signin',
@@ -12,10 +12,5 @@ export default [
     path: '/signup',
     name: 'signup',
     component: () => import(/* webpackChunkName: "main" */ '../components/SignUp.vue')
-  },
-  {
-    path: '/',
-    name: 'teste',
-    component: () => import(/* webpackChunkName: "user" */ '../components/postList.vue')
   }
 ]
