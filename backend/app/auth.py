@@ -29,10 +29,10 @@ def login_post():
     
     if not user or not check_password_hash(user.password, password):
         return jsonify({
-                
                 "sucess":False,
                 "cause":"Por favor verifique seu usuário e senha"
                 }),400
+
     token = jwt.encode({"user":user.id,"exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
 
     return  jsonify({
