@@ -1,0 +1,24 @@
+.icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  .icon {
+    width: 30px;
+    height: 30px;
+    transition: 0.33s;
+    &.rotate {
+      transform: rotate(-180deg);
+    }
+    svg, svg, path, line {
+      transition: 1s;
+      color:#fff !important;
+      fill: #fff !important;
+      stroke: #fff !important;
+    }
+    polyline {
+      stroke: #fff !important;
+    }
+  }
+}
+

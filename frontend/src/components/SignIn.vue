@@ -3,9 +3,7 @@
     <form @submit.prevent="signIn" class="login-form">
       <div class="wrapper">
         <div class="header">
-          <div class="logo">
-            Venus
-          </div>
+          <Logo/>
           <div class="title">Login</div>
         </div>
         <div class="input-group">

@@ -3,9 +3,7 @@
     <div class="login-form">
       <div class="wrapper">
         <div class="header">
-          <div class="logo">
-            Venus
-          </div>
+          <Logo/>
           <div class="title">Cadastro</div>
         </div>
         <div class="input-group">

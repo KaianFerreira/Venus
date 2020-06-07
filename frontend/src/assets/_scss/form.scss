@@ -17,12 +17,6 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 0px;
-    .logo {
-      margin: 20px 0;
-      color: #00CEF5;
-      font-family: Satisfy;
-      font-size: 3em;
-    }
     .title {
       display: flex;
       align-items: center;
@@ -46,18 +40,15 @@
     height: 100%;
     background-color: #0C84E8;
   }
-  .logo {
-    font-size: 4em !important;
-  }
-  .input-group {
-    font-size: 15px;
-  }
-  .header {
-    margin-bottom: 30px !important;
-  }
   .login-form {
     background-color: white;
     display: flex;
+    .input-group {
+      font-size: 15px;
+    }
+    .header {
+      margin-bottom: 30px !important;
+    }
     .wrapper {
       padding-top: 150px;
       height: 585px;
