@@ -38,6 +38,11 @@ const follow = async (usuario) => {
   return data
 }
 
+const social = async () => {
+  const { data } = await api.get('private/profile')
+  return data
+}
+
 const upvote = async (idPost) => {
   const { data } = await api.get(`upvote/${idPost}`)
   return data
@@ -50,5 +55,6 @@ export {
   remove,
   getAllUser,
   follow,
-  upvote
+  upvote,
+  social
 }

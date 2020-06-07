@@ -9,9 +9,9 @@
           <div class="title">Login</div>
         </div>
         <div class="input-group">
-          <Input :return="inputDescricao" label='Descricao' Type='text'/>
-          <Input :return="inputLink" label='Link' Type='text'/>
-          <Input :return="inputTitle" label='Title' Type='text'/>
+          <Input v-model="descricao" label='Descricao' Type='text'/>
+          <Input v-model="link" label='Link' Type='text'/>
+          <Input v-model="title" label='Title' Type='text'/>
         </div>
         <span class="error" style="align-self: flex-start">{{ error }}</span>
       </div>
@@ -35,15 +35,6 @@ export default {
     }
   },
   methods: {
-    inputDescricao (value) {
-      this.descricao = value
-    },
-    inputLink (value) {
-      this.link = value
-    },
-    inputTitle (value) {
-      this.title = value
-    },
     async insertPost () {
       try {
         this.error = null

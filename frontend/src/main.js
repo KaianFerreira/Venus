@@ -3,6 +3,7 @@ import App from './components/App.vue'
 import router from './router'
 import store from './store'
 import { getData } from './libs/token'
+
 Vue.config.productionTip = false
 
 Vue.component('Logo', () => import('./components/Logo.vue'))
