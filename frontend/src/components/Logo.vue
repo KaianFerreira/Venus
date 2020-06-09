@@ -11,6 +11,7 @@ export default {
 <style lang="scss" scoped>
   @import '../assets/_scss/variables.scss';
   .logo {
+    display: flex;
     margin: 20px 0;
     color: #00CEF5;
     font-family: Satisfy;

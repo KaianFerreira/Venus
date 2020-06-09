@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section class="container login">
     <div class="login-form">
       <div class="wrapper">
         <div class="header">

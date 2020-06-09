@@ -1,7 +1,13 @@
 export default [
   {
     path: '/',
-    name: 'Home',
-    component: () => import(/* webpackChunkName: "user" */ '../components/user/Router.vue')
+    component: () => import(/* webpackChunkName: "user" */ '../components/user/Router.vue'),
+    children: [
+      {
+        path: '',
+        name: 'posts',
+        component: () => import(/* webpackChunkName: "user" */ '../components/user/Posts.vue')
+      }
+    ]
   }
 ]

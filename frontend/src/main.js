@@ -10,6 +10,9 @@ Vue.component('Logo', () => import('./components/Logo.vue'))
 Vue.component('Input', () => import('./components/Input.vue'))
 Vue.component('IconClose', () => import('./icons/IconClose.vue'))
 Vue.component('IconArrow', () => import('./icons/IconArrow.vue'))
+Vue.component('IconPerson', () => import('./icons/IconPerson.vue'))
+Vue.component('IconLogOut', () => import('./icons/IconLogOut.vue'))
+Vue.component('IconHome', () => import('./icons/IconHome.vue'))
 
 new Vue({
   router,

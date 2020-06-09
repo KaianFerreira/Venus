@@ -13,10 +13,10 @@
     svg, svg, path, line {
       transition: 1s;
       color:#fff !important;
-      fill: #fff !important;
       stroke: #fff !important;
     }
     polyline {
+      fill: transparent !important;
       stroke: #fff !important;
     }
   }
