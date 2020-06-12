@@ -33,9 +33,12 @@
   }
 }
 .login {
-  background-color: #0C84E8;
+  background-color: #fff;
 }
 @media screen and (min-width: $desktop-width) {
+  .login {
+    background-color: $primary-color;
+  }
   .container {
     display: flex;
     justify-content: flex-end;

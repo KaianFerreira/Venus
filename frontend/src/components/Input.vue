@@ -1,17 +1,17 @@
 <template>
   <div class="form-group">
     <div v-if="Type === 'text'" class="input-wrapper">
-      <input v-on:input="updateValue($event.target.value)" type="text" class="input-value"/>
-      <label class="input-span" for="email" :class="{ 'active': value }">{{ label }}</label>
+      <input v-on:input="updateValue($event.target.value)" :value="value" type="text" class="input-value"/>
+      <label class="input-span" for="text" :class="{ 'active': value }">{{ label }}</label>
       <div class="line"></div>
     </div>
     <div v-if="Type === 'email'" class="input-wrapper">
-      <input v-on:input="updateValue($event.target.value)" type="email" class="input-value"/>
+      <input v-on:input="updateValue($event.target.value)" :value="value" type="email" class="input-value"/>
       <label class="input-span" for="email" :class="{ 'active': value }">{{ label }}</label>
       <div class="line"></div>
     </div>
     <div v-if="Type === 'password'" class="input-wrapper">
-      <input v-on:input="updateValue($event.target.value)" type="password" class="input-value"/>
+      <input v-on:input="updateValue($event.target.value)" :value="value" type="password" class="input-value"/>
       <label class="input-span" for="password" :class="{ 'active': value }">{{ label }}</label>
       <div class="line"></div>
     </div>
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  props: ['label', 'value', 'Type', 'model'],
+  props: ['label', 'value', 'Type'],
   data () {
     return {
       type: 'text'

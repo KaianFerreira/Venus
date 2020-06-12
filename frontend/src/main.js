@@ -13,6 +13,7 @@ Vue.component('IconArrow', () => import('./icons/IconArrow.vue'))
 Vue.component('IconPerson', () => import('./icons/IconPerson.vue'))
 Vue.component('IconLogOut', () => import('./icons/IconLogOut.vue'))
 Vue.component('IconHome', () => import('./icons/IconHome.vue'))
+Vue.component('IconUpVote', () => import('./icons/IconUpVote.vue'))
 
 new Vue({
   router,

@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <router-view class="router-view"/>
+    <router-view class="router-view" :class="{ 'close': closed }"/>
   </div>
 </template>
 
@@ -63,7 +63,9 @@ export default {
     height: 100vh;
     width: 100%;
     .router-view {
+      transition: 0.33s;
       flex-grow: 1;
+      margin-left: 70px;
     }
     .menu {
       color: #fff;
@@ -72,7 +74,10 @@ export default {
       display:flex;
       flex-direction: column;
       background-color: $primary-color;
-      width: 100%;
+      position: fixed;
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      z-index: 1;
       &.close {
         width: 50px !important;
       }
@@ -163,7 +168,7 @@ export default {
     }
     .close {
       .content {
-        .name & .actions {
+        .name, .actions {
           display: none;
         }
         .user {
@@ -174,7 +179,6 @@ export default {
 
           .menu-item {
             margin-left: 0px;
-            margin: 0px0px;
             &:hover {
               transform: translateX(0px);
             }

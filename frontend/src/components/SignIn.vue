@@ -7,8 +7,8 @@
           <div class="title">Login</div>
         </div>
         <div class="input-group">
-          <Input v-model="email" label='Email' Type='text'/>
-          <Input v-model="password" label='Password' Type='password'/>
+          <Input v-model="email" :value="email" label='Email' Type='text'/>
+          <Input v-model="password" :value="password" label='Password' Type='password'/>
         </div>
         <span class="error" style="align-self: flex-start">{{ error }}</span>
       </div>

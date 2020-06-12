@@ -4,6 +4,17 @@
   align-items: center;
   cursor: pointer;
   .icon {
+    &.black {
+      svg, svg, path, line {
+        transition: 0.2s;
+        color:#000 !important;
+        stroke: #000 !important;
+      }
+      polyline {
+        fill: transparent !important;
+        stroke: #000 !important;
+      }
+    }
     width: 30px;
     height: 30px;
     transition: 0.33s;
@@ -11,7 +22,7 @@
       transform: rotate(-180deg);
     }
     svg, svg, path, line {
-      transition: 1s;
+      transition: 0.33s;
       color:#fff !important;
       stroke: #fff !important;
     }

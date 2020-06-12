@@ -4,7 +4,7 @@ import router from '../router'
 import { setData, removeData } from '../libs/token'
 Vue.use(Vuex)
 
-const startTime = new Date()
+// const startTime = new Date()
 
 export default new Vuex.Store({
   state: {
@@ -17,11 +17,12 @@ export default new Vuex.Store({
   },
   actions: {
     loaded (store) {
-      const diff = (new Date()) - startTime
-      const wait = 2000 - diff < 0 ? 0 : 2000 - diff
-      setTimeout(() => {
-        store.commit('loaded', true)
-      }, wait)
+      // const diff = (new Date()) - startTime
+      // const wait = 2000 - diff < 0 ? 0 : 2000 - diff
+      // setTimeout(() => {
+      //   store.commit('loaded', true)
+      // }, wait)
+      store.commit('loaded', true)
     },
     async signIn (store, data) {
       store.commit('user', data.user)
