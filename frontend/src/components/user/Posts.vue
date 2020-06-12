@@ -31,6 +31,7 @@
             </div>
           </div>
         </div>
+      <InsertPost :reload="this.postList" />
       </div>
     </div>
   </section>
@@ -39,6 +40,7 @@
 <script>
 import { getAll, getAllUser, upvote, remove } from '../../api/post'
 import { mapState } from 'vuex'
+import InsertPost from './InsertPost'
 export default {
   data () {
     return {
@@ -48,6 +50,9 @@ export default {
   },
   computed: {
     ...mapState(['user', 'loaded'])
+  },
+  components: {
+    InsertPost
   },
   mounted () {
     console.log(this.user)

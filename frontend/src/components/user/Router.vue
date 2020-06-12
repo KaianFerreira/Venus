@@ -9,7 +9,7 @@
           <div class="photo">
             <IconPerson css="icon-user"/>
           </div>
-          <div class="name">
+          <div class="name" @click="$router.push(`/profile/${user.name}`)">
             {{ user.name.split(' ')[0] }}
           </div>
           <div class="actions">
@@ -26,6 +26,36 @@
             <span class="title">Home</span>
           </div>
         </div>
+        <div class="wrapper">
+          <div class="menu-item">
+            <span class="title">Pessoas que você segue:</span>
+          </div>
+        </div>
+        <div v-for="followed in following" :key="followed.id">
+          <div class="wrapper" @click="$router.push(`/profile/${followed.followed}`)">
+            <div class="icon-wrapper">
+              <IconPerson css="icon"/>
+            </div>
+            <div class="menu-item">
+              <span class="title">{{ followed.followed }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="wrapper">
+          <div class="menu-item">
+            <span class="title">Pessoas que seguem você:</span>
+          </div>
+        </div>
+        <div v-for="follower in followers" :key="follower.id">
+          <div class="wrapper">
+            <div class="icon-wrapper">
+              <IconPerson css="icon"/>
+            </div>
+            <div class="menu-item">
+              <span class="title">{{ follower.followed }}</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="footer">
         <div class="icon-wrapper" @click="closed = !closed">
@@ -39,18 +69,37 @@
 
 <script>
 import { mapState } from 'vuex'
+import { social } from '../../api/post'
 export default {
   computed: {
     ...mapState(['user'])
   },
   data () {
     return {
-      closed: true
+      closed: true,
+      followers: [],
+      following: []
     }
+  },
+  mounted () {
+    this.social()
   },
   methods: {
     signOut () {
       this.$store.dispatch('signOut')
+    },
+    async social () {
+      try {
+        this.error = null
+        const res = await social()
+        if (!res.Sucess) this.error = res.Cause
+        this.followers = res.followers
+        this.following = res.following
+        console.log(this.following)
+      } catch (error) {
+        console.log(new Error(error))
+        console.log('Deu erro')
+      }
     }
   }
 }
@@ -166,10 +215,14 @@ export default {
         }
       }
     }
+    .name {
+      cursor: pointer
+    }
     .close {
       .content {
         .name, .actions {
           display: none;
+          cursor: pointer
         }
         .user {
           border: none;
