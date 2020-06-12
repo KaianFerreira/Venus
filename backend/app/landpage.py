@@ -212,13 +212,22 @@ def deletePost(current_user,id_post):
 @token_required
 def editPost(current_user,id_post):
   payload = json.loads(request.data)
-  post = Post.query.filter_by(id=id_post).first()
-  post.title = payload['title']
-  post.description = payload['description']
-  post.link = payload['link']
-  db.session.commit()
-  return jsonify({'sucess':True})
-
+  post = Post.query.filter_by(id=id_post).first()  
+  if post:
+   if current_user.name == post.username or current_user.name == "admin1": 
+      post.title = payload['title']
+      post.description = payload['description']
+      post.link = payload['link']
+      db.session.commit()
+   else:
+      return jsonify({"sucess":False,
+                    "cause":"Não é possivel atualizar a postagem de outro usuário"
+                    }),400 
+   return jsonify({'sucess':True})
+  else:
+    return jsonify({"sucess":False,
+                    "cause":"Post nao encontrado"
+                    }),400
 
 
 @main.route('/follow/<username>', methods=['GET'])
