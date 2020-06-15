@@ -33,7 +33,7 @@ def login_post():
                 "cause":"Por favor verifique seu usuário e senha"
                 }),400
 
-    token = jwt.encode({"user":user.id,"exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'])
+    token = jwt.encode({"user":user.id,"exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=300)}, app.config['SECRET_KEY'])
 
     return  jsonify({
                 "user":row2dict(user),
