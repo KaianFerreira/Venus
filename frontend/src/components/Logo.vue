@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    V<div v-if="!minimize">enus</div>
+    P<div v-if="!minimize">luto</div>
   </div>
 </template>
 <script>

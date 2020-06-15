@@ -14,6 +14,9 @@ Vue.component('IconPerson', () => import('./icons/IconPerson.vue'))
 Vue.component('IconLogOut', () => import('./icons/IconLogOut.vue'))
 Vue.component('IconHome', () => import('./icons/IconHome.vue'))
 Vue.component('IconUpVote', () => import('./icons/IconUpVote.vue'))
+Vue.component('IconSearch', () => import('./icons/IconSearch.vue'))
+Vue.component('IconPlus', () => import('./icons/IconPlus.vue'))
+Vue.component('IconLove', () => import('./icons/IconHearth.vue'))
 
 new Vue({
   router,

@@ -49,6 +49,26 @@
     margin-left: 12px !important;
   }
 }
+
+.input-search {
+  display: flex;
+  width: 600px;
+  align-self: center;
+  input {
+    width: 550px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 1.5em;
+    margin-right: 10px;
+  }
+  .icon {
+    fill: #c4c4c4;
+  }
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  padding: 10px;
+}
 .input-small {
   max-width: 100px !important;
 }

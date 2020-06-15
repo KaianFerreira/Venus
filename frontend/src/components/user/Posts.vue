@@ -1,20 +1,28 @@
 <template>
   <section class="container">
     <div class="content" v-if="loaded">
-      <div class="list flex" v-for="post in posts" :key="post.id">
+      <!-- <InsertPost :reload="this.postList" /> -->
+      <InsertPost :popup="popup" v-if="popup.open"/>
+      <div class="search-wrapper">
+        <div class="input-search">
+          <input type="text" v-model="search">
+          <div class="icon-wrapper">
+            <IconSearch class="icon"/>
+          </div>
+        </div>
+        <div class="icon-wrapper icon-search" @click="popup.open = true">
+          <IconPlus class="icon"/>
+        </div>
+      </div>
+      <div class="list flex" v-for="post in filteredItems" :key="post.id">
         <div class="post flex">
           <div class="rating">
             <div class="vote flex">
               <div class="icon-wrapper" @click="upvote(post.id)">
-                <IconUpVote css="icon up black"/>
+                <IconLove css="icon black"/>
               </div>
             </div>
             {{ post.upvotes }}
-            <div class="vote flex">
-              <div class="icon-wrapper" @click="upvote(post.id)">
-                <IconUpVote css="icon down rotate black"/>
-              </div>
-            </div>
           </div>
           <div class="post-wrapper">
             <span>Postado por {{ post.username }}</span>
@@ -31,7 +39,6 @@
             </div>
           </div>
         </div>
-      <InsertPost :reload="this.postList" />
       </div>
     </div>
   </section>
@@ -40,18 +47,28 @@
 <script>
 import { getAll, getAllUser, upvote, remove } from '../../api/post'
 import { mapState } from 'vuex'
-import InsertPost from './InsertPost'
+import InsertPost from '../PopUp'
+// import InsertPost from './InsertPost'
 export default {
   data () {
     return {
       posts: [],
+      search: '',
+      popup: {
+        open: false,
+        type: 'overdue'
+      },
       error: null
     }
   },
   computed: {
-    ...mapState(['user', 'loaded'])
+    ...mapState(['user', 'loaded']),
+    filteredItems () {
+      return this.posts.filter(x => Object.keys(x).some(key => String(x[key]).toUpperCase().includes(this.search.toUpperCase())))
+    }
   },
   components: {
+    // InsertPost,
     InsertPost
   },
   mounted () {
@@ -111,11 +128,35 @@ export default {
   .flex {
     display: flex;
   }
+  .search-wrapper {
+    padding:0px 20px;
+    display: flex;
+    .icon-search {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      .icon {
+        width: 70px;
+        height: 70px;
+      }
+    }
+    :last-child {
+      .icon {
+        // margin-left: 20px;
+        fill: $primary-color;
+      }
+    }
+  }
   .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     // min-height: 100%;
     padding: 20px 0px;
     .list {
+      width: 100%;
       justify-content: center;
     }
     .post {
@@ -133,23 +174,15 @@ export default {
           justify-content: center;
         }
         .icon {
-          svg path {
-            transition: 0.33s !important;
+          svg, path, line {
+            transition: 0s !important;
+          }
+          fill: $primary-color;
+          &:hover {
+            fill: red;
           }
           width: 15px;
-          &.up {
-            transform: rotate(-90deg);
-            &:hover {
-              fill: $primary-color;
-              }
-          }
-          &.down {
-            transform: rotate(90deg);
-            &:hover {
-              fill: red;
-            }
-          }
-        }
+      }
       }
       .post-header {
         font-weight: bold;

@@ -17,12 +17,12 @@
     }
     width: 30px;
     height: 30px;
-    transition: 0.33s;
+    transition: 0.2s;
     &.rotate {
       transform: rotate(-180deg);
     }
     svg, svg, path, line {
-      transition: 0.33s;
+      transition: 0.2s;
       color:#fff !important;
       stroke: #fff !important;
     }
